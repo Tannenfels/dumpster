@@ -1,12 +1,13 @@
 module parser.parser;
 
 import std.regex;
+import std.uni;
 
 class Parser
 {
     public:
-        static parseSql(string sql){
-            sql = sql.toLower();
+        static parseSql(string rawSql){
+            unicode* sql = new unicode();
             regex([``]);
 
         }

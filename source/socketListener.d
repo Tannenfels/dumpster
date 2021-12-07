@@ -1,7 +1,7 @@
 module socketListener;
 
 import std.socket : InternetAddress, Socket, SocketException, SocketSet, TcpSocket;
-import std.stdio;
+import std.stdio : writefln, writeln;
 
 class DumpsterSocket
 {
@@ -11,8 +11,9 @@ class DumpsterSocket
     TcpSocket listener;
 
     public:
-    this()
+    this(ushort port = this.DEFAULT_PORT)
     {
+        this.port= port;
         this.start();
     }
 
