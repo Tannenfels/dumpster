@@ -1,7 +1,7 @@
 module socketListener;
 
 import std.socket : InternetAddress, Socket, SocketException, SocketSet, TcpSocket;
-import std.stdio : writefln, writeln;
+import std.stdio : writefln;
 import std.algorithm;
 import consoleoutput;
 
@@ -54,7 +54,7 @@ class DumpsterSocket
                     auto datLength = reads[i].receive( buf[]);
 
                     if (datLength == Socket.ERROR)
-                        writeln( "Connection error.");
+                        this.logger.write("Connection error.");
                     else if (datLength != 0)
                     {
                         writefln( "Received %d bytes from %s: \"%s\"", datLength, reads[i].remoteAddress().toString(), buf[0..datLength]);
