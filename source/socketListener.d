@@ -2,6 +2,7 @@ module socketListener;
 
 import std.socket : InternetAddress, Socket, SocketException, SocketSet, TcpSocket;
 import std.stdio : writefln, writeln;
+import std.algorithm;
 
 class DumpsterSocket
 {
@@ -73,7 +74,7 @@ class DumpsterSocket
                     // release socket resources now
                     reads[i].close();
 
-                    reads = reads.remove(i);
+                    remove(reads, i);
                     // i will be incremented by the for, we don't want it to be.
                     i--;
 
@@ -114,7 +115,5 @@ class DumpsterSocket
             socketSet.reset();
 
         }
-
-        return 0;
     }
 } 
