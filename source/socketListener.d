@@ -3,6 +3,7 @@ module socketListener;
 import std.socket : InternetAddress, Socket, SocketException, SocketSet, TcpSocket;
 import std.stdio : writefln, writeln;
 import std.algorithm;
+import consoleoutput;
 
 class DumpsterSocket
 {
@@ -10,11 +11,13 @@ class DumpsterSocket
     static const ushort DEFAULT_PORT = 61888;
     ushort port = this.DEFAULT_PORT;
     TcpSocket listener;
+    ConsoleOutput logger;
 
     public:
     this(ushort port = this.DEFAULT_PORT)
     {
         this.port= port;
+        this.logger = new ConsoleOutput;
         this.start();
     }
 
@@ -66,7 +69,7 @@ class DumpsterSocket
                         }
                         catch (SocketException)
                         {
-                            writeln( "Connection closed.");
+                            this.logger.write("Connection closed.");
                             return 1;
                         }
                     }
