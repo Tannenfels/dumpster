@@ -3,7 +3,7 @@ module socketListener;
 import std.socket : InternetAddress, Socket, SocketException, SocketSet, TcpSocket;
 import std.stdio : writefln;
 import std.algorithm;
-import consoleoutput;
+import console.socketlogger;
 
 class DumpsterSocket
 {
@@ -11,13 +11,13 @@ class DumpsterSocket
     static const ushort DEFAULT_PORT = 61888;
     ushort port = this.DEFAULT_PORT;
     TcpSocket listener;
-    ConsoleOutput logger;
+    SocketLogger logger;
 
     public:
     this(ushort port = this.DEFAULT_PORT)
     {
         this.port= port;
-        this.logger = new ConsoleOutput;
+        this.logger = new SocketLogger;
         this.start();
     }
 
@@ -58,6 +58,7 @@ class DumpsterSocket
                     else if (datLength != 0)
                     {
                         writefln( "Received %d bytes from %s: \"%s\"", datLength, reads[i].remoteAddress().toString(), buf[0..datLength]);
+                        this.logger.writeFormat!string("Received %d bytes from %s: \"%s\"", datLength, reads[i].remoteAddress().toString(), buf[0..datLength]);
                         continue ;
                     }
                     else
